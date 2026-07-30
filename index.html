@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Simple - Portal de Trámites</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#EA580C',
+              'orange-hover': '#C2410C',
+              teal: '#0D9488',
+              'teal-hover': '#0F766E',
+              bg: '#FAFAF9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-stone-50 text-stone-900 min-h-screen flex flex-col font-sans antialiased">
+
+  <header class="sticky top-0 z-40 bg-white border-b border-stone-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-amber-500 flex items-center justify-center text-white font-bold text-xl">G</div>
+        <span class="font-display font-black text-xl tracking-tight text-stone-950">Guía<span class="text-brand-orange">Simple</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-semibold text-brand-orange bg-orange-50/80">Explorar</a>
+        <a href="html/panel.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Mi Panel & Mapas</a>
+        <a href="html/soporte.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Comunidad & Soporte</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button id="open-register-btn" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-all flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Registrarse
+        </button>
+        <div class="flex items-center gap-2 pl-2 border-l border-stone-200">
+          <div class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500">
+            <i data-lucide="user" class="w-5 h-5"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs font-bold text-stone-950 leading-tight" id="user-greeting">¡Hola!</p>
+            <p class="text-[10px] text-stone-400 leading-none">Invitado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="space-y-12 animate-fade-in">
+      <div class="bg-white border border-stone-200/80 rounded-[32px] p-8 md:p-12 relative shadow-sm flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-grow space-y-6 text-center md:text-left w-full relative z-20">
+          <span class="inline-flex items-center gap-2 bg-orange-50 text-brand-orange px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+            <i data-lucide="search" class="w-3.5 h-3.5"></i> Buscador de Trámites
+          </span>
+          <h1 class="font-display font-black text-4xl sm:text-5xl text-stone-950 leading-none tracking-tight">
+            ¿Qué trámite deseas resolver hoy?
+          </h1>
+          
+          <div class="relative max-w-lg mx-auto md:mx-0 z-30">
+            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 w-5 h-5"></i>
+            <input type="text" id="main-search" autocomplete="off" placeholder="Escribe el nombre del trámite (Ej: Pasaporte)..." class="w-full pl-12 pr-12 py-4 rounded-full border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-100 focus:border-brand-orange transition-all text-sm font-medium">
+            <button id="clear-search-btn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div id="autocomplete-results" class="hidden absolute left-0 right-0 mt-2 bg-white border border-stone-200 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-stone-100 max-h-60 overflow-y-auto">
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="flex justify-between items-end flex-wrap gap-4">
+          <div>
+            <h2 class="font-display font-black text-2xl text-stone-950">Categorías de Trámites</h2>
+            <p class="text-xs text-stone-400">Selecciona un área para filtrar los trámites disponibles.</p>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap" id="category-filter-container">
+            <button class="cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition-all bg-brand-orange text-white" data-cat="todas">Todas</button>
+            <button class="cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-700" data-cat="transporte">Transporte</button>
+            <button class="cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-700" data-cat="identificacion">Identificación</button>
+            <button class="cat-btn px-4 py-1.5 rounded-full text-xs font-bold transition-all bg-stone-100 text-stone-700" data-cat="personales">Personales</button>
+          </div>
+        </div>
+
+        <div id="tramites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs">
+      <p>© 2026 Guía Simple. Simplificando tus trámites públicos colombianos.</p>
+    </div>
+  </footer>
+
+  <div id="register-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-stone-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-stone-100 p-6 space-y-5 relative animate-scale-up">
+      <button id="close-register-btn" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="text-center space-y-1">
+        <span class="inline-block bg-orange-50 text-brand-orange px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Únete al portal</span>
+        <h2 id="auth-modal-title" class="font-display font-black text-2xl text-stone-950">Crear tu Cuenta</h2>
+        <p id="auth-modal-subtitle" class="text-xs text-stone-400">Guarda tus avances y sincroniza tu calendario.</p>
+      </div>
+      <form id="register-form" class="space-y-3" novalidate>
+        <div class="relative" id="reg-name-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Nombre Completo</label>
+          <input type="text" id="reg-name" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Ej: Juan Pérez">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Correo Electrónico</label>
+          <input type="email" id="reg-email" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="tu@correo.com">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Contraseña</label>
+          <input type="password" id="reg-pass" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative" id="reg-pass-confirm-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Confirmar Contraseña</label>
+          <input type="password" id="reg-pass-confirm" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="pt-4 space-y-2">
+          <button type="submit" id="auth-submit-btn" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white py-2.5 rounded-xl text-xs font-bold transition-all">Crear Cuenta e Ingresar</button>
+          <button type="button" id="toggle-auth-mode" class="w-full text-center text-[11px] font-bold text-stone-400 hover:text-brand-orange transition-colors">¿Ya tienes cuenta? Inicia sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/explorar.js"></script>
+</body>
+</html>
