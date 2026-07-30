@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Panel Ciudadano - Guía Simple</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#EA580C',
+              'orange-hover': '#C2410C',
+              teal: '#0D9488',
+              'teal-hover': '#0F766E',
+              bg: '#FAFAF9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-stone-50 text-stone-900 min-h-screen flex flex-col font-sans antialiased">
+
+  <!-- BARRA DE NAVEGACIÓN RE-ESTABLECIDA CON REGISTRO -->
+  <header class="sticky top-0 z-40 bg-white border-b border-stone-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-amber-500 flex items-center justify-center text-white font-bold text-xl">G</div>
+        <span class="font-display font-black text-xl tracking-tight text-stone-950">Guía<span class="text-brand-orange">Simple</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="../index.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Explorar</a>
+        <a href="panel.html" class="px-4 py-2 rounded-full text-sm font-semibold text-brand-orange bg-orange-50/80">Mi Panel & Mapas</a>
+        <a href="soporte.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Comunidad & Soporte</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <!-- Botón Registrarse Re-incorporado -->
+        <button id="open-register-btn" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-all flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Registrarse
+        </button>
+        <div class="flex items-center gap-2 pl-2 border-l border-stone-200">
+          <div class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500">
+            <i data-lucide="user" class="w-5 h-5"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs font-bold text-stone-950 leading-tight" id="user-greeting">¡Hola!</p>
+            <p class="text-[10px] text-stone-400 leading-none">Invitado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+    <div class="space-y-8">
+      <div>
+        <h1 class="font-display font-black text-3xl text-stone-950">Mi Panel Ciudadano</h1>
+        <p class="text-xs text-stone-400">Administra tus recordatorios de citas oficiales, consulta direcciones y haz seguimiento de tu progreso.</p>
+      </div>
+
+      <!-- Métricas Dinámicas (Se bloquean o desbloquean según el registro) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="metrics-grid">
+        <!-- Bloqueo general por CSS si no está registrado -->
+        <div class="bg-white border border-stone-200/80 p-6 rounded-2xl shadow-sm flex items-center gap-4 relative overflow-hidden transition-all metric-card">
+          <div class="w-12 h-12 bg-orange-50 text-brand-orange rounded-xl flex items-center justify-center shrink-0">
+            <i data-lucide="hourglass" class="w-6 h-6"></i>
+          </div>
+          <div class="metric-content">
+            <h2 class="text-2xl font-black text-stone-950">45 Horas</h2>
+            <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">Fila Ahorrada</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Interactiva: Trámites en Curso -->
+        <div id="active-tramites-card" class="bg-white border border-stone-200/80 p-6 rounded-2xl shadow-sm flex items-center gap-4 relative overflow-hidden transition-all cursor-pointer hover:border-brand-orange metric-card">
+          <div class="w-12 h-12 bg-teal-50 text-brand-teal rounded-xl flex items-center justify-center shrink-0">
+            <i data-lucide="activity" class="w-6 h-6"></i>
+          </div>
+          <div class="metric-content flex-grow">
+            <h2 class="text-2xl font-black text-stone-950 flex items-center justify-between">
+              <span>2 Activos</span>
+              <span class="text-xs font-bold text-brand-orange underline">Ver listado ➔</span>
+            </h2>
+            <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">Trámites en Curso</p>
+          </div>
+        </div>
+
+        <div class="bg-white border border-stone-200/80 p-6 rounded-2xl shadow-sm flex items-center gap-4 relative overflow-hidden transition-all metric-card">
+          <div class="w-12 h-12 bg-stone-100 text-stone-600 rounded-xl flex items-center justify-center shrink-0">
+            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+          </div>
+          <div class="metric-content">
+            <h2 class="text-2xl font-black text-stone-950">3 Completados</h2>
+            <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">Checklists Listos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN OCULTA: LISTADO DE TRÁMITES ACTIVOS (Aparece al dar clic en Trámites Activos) -->
+      <div id="tramites-activos-section" class="hidden bg-white border border-stone-200 rounded-3xl p-6 shadow-sm space-y-4 animate-scale-up">
+        <div class="flex justify-between items-center">
+          <h3 class="font-display font-black text-lg text-stone-950">Tus Trámites en Curso</h3>
+          <button id="close-activos-btn" class="text-xs font-bold text-stone-400 hover:text-stone-700">Cerrar ✕</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="tramite_licencia.html" class="flex justify-between items-center p-4 bg-stone-50 hover:bg-orange-50/50 border border-stone-100 hover:border-brand-orange rounded-2xl transition-all">
+            <div>
+              <p class="text-xs font-bold text-stone-950">Renovación de Licencia de Conducir</p>
+              <p class="text-[10px] text-stone-400">Progreso: En CRC Médico</p>
+            </div>
+            <span class="text-xs font-bold text-brand-orange">Continuar ➔</span>
+          </a>
+          <a href="tramite_pasaporte.html" class="flex justify-between items-center p-4 bg-stone-50 hover:bg-orange-50/50 border border-stone-100 hover:border-brand-orange rounded-2xl transition-all">
+            <div>
+              <p class="text-xs font-bold text-stone-950">Renovación de Pasaporte</p>
+              <p class="text-[10px] text-stone-400">Progreso: Diligenciando Formulario</p>
+            </div>
+            <span class="text-xs font-bold text-brand-orange">Continuar ➔</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Buscador Geográfico, Direcciones y Recordatorios -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Mapa y Direcciones Preestablecidas -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white border border-stone-200/80 rounded-3xl p-6 shadow-sm space-y-6">
+            <div>
+              <h2 class="font-display font-black text-lg text-stone-950">Buscador de Oficinas y Direcciones</h2>
+              <p class="text-xs text-stone-400">Consulta los puntos de atención física recomendados.</p>
+            </div>
+            
+            <div class="flex gap-2">
+              <input type="text" id="map-search" placeholder="Busca dirección o nombre de la oficina..." class="flex-grow px-4 py-3 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100">
+              <button id="btn-buscar-mapa" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-3 rounded-xl text-xs font-bold shadow-md transition-all">Buscar</button>
+            </div>
+
+            <!-- Mapa simulado -->
+            <div id="mapa-visual" class="w-full h-64 bg-stone-100 rounded-2xl flex items-center justify-center border border-stone-200 overflow-hidden relative">
+              <span class="text-xs text-stone-400 font-bold">Mapa Interactivo de Soporte</span>
+              <div class="absolute bottom-4 left-4 bg-brand-orange text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">Oficina Central</div>
+              <div class="absolute bottom-4 right-4 bg-stone-950 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-md">Mapa Activo</div>
+            </div>
+
+            <!-- RECUADRO DE DIRECCIONES PREESTABLECIDAS -->
+            <div class="space-y-3">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-stone-400">Sedes Principales Sugeridas</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 border border-stone-150 bg-stone-50/50 rounded-2xl flex items-start gap-3">
+                  <div class="p-2 bg-orange-50 text-brand-orange rounded-xl shrink-0"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                  <div>
+                    <h4 class="text-xs font-bold text-stone-950">Ventanilla Única de Tránsito (Licencias)</h4>
+                    <p class="text-[10px] text-stone-400">Calle 10 # 23-45 — Yopal, Casanare</p>
+                  </div>
+                </div>
+                <div class="p-4 border border-stone-150 bg-stone-50/50 rounded-2xl flex items-start gap-3">
+                  <div class="p-2 bg-teal-50 text-brand-teal rounded-xl shrink-0"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                  <div>
+                    <h4 class="text-xs font-bold text-stone-950">Oficina Departamental de Pasaportes</h4>
+                    <p class="text-[10px] text-stone-400">Carrera 15 # 14-20 (Edificio Gobernación)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario Agenda y Recordatorios -->
+        <div class="space-y-6">
+          <div class="bg-white border border-stone-200/80 rounded-3xl p-6 shadow-sm space-y-4">
+            <h2 class="font-display font-black text-sm uppercase tracking-wider text-stone-400">Agendar Nueva Cita</h2>
+            <form id="cita-form" class="space-y-3">
+              <select id="cita-tramite" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold focus:outline-none bg-stone-50">
+                <option value="">Selecciona Trámite</option>
+                <option value="Renovación de Licencia">Renovación de Licencia</option>
+                <option value="Renovación de Pasaporte">Renovación de Pasaporte</option>
+                <option value="Pago de Impuestos">Pago de Impuesto Vehicular</option>
+              </select>
+              <input type="date" id="cita-fecha" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold focus:outline-none bg-stone-50">
+              <select id="cita-sede" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold focus:outline-none bg-stone-50">
+                <option value="">Selecciona Sede</option>
+                <option value="Sede Principal Calle 10">Sede Principal Calle 10</option>
+                <option value="Oficina Central Norte">Oficina Central Norte</option>
+              </select>
+              <button type="submit" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm">Registrar Cita</button>
+            </form>
+          </div>
+
+          <div class="bg-white border border-stone-200/80 rounded-3xl p-6 shadow-sm space-y-4">
+            <h2 class="font-display font-black text-xs uppercase tracking-wider text-stone-400">Mis Recordatorios</h2>
+            <div id="recordatorios-container" class="space-y-3">
+              <!-- Cita preestablecida de ejemplo -->
+              <div class="flex items-center justify-between border-b border-stone-100 pb-3" id="cita-ejemplo">
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-orange mt-1.5"></div>
+                  <div>
+                    <h3 class="text-xs font-bold text-stone-950">Cita de pasaporte agendada</h3>
+                    <p class="text-[10px] text-stone-400">Mañana a las 10:00 AM</p>
+                  </div>
+                </div>
+                <!-- Botón de Borrar -->
+                <button class="text-stone-300 hover:text-red-500 transition-colors" onclick="document.getElementById('cita-ejemplo').remove()"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs">
+      <p>© 2026 Guía Simple. Simplificando tus trámites públicos colombianos.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL DE REGISTRO -->
+  <div id="register-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-stone-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-stone-100 p-6 space-y-5 relative animate-scale-up">
+      <button id="close-register-btn" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="text-center space-y-1">
+        <span class="inline-block bg-orange-50 text-brand-orange px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Únete al portal</span>
+        <h2 id="auth-modal-title" class="font-display font-black text-2xl text-stone-950">Crear tu Cuenta</h2>
+        <p id="auth-modal-subtitle" class="text-xs text-stone-400">Guarda tus avances y sincroniza tu calendario.</p>
+      </div>
+      <form id="register-form" class="space-y-3" novalidate>
+        <div class="relative" id="reg-name-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Nombre Completo</label>
+          <input type="text" id="reg-name" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Ej: Juan Pérez">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Correo Electrónico</label>
+          <input type="email" id="reg-email" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="tu@correo.com">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Contraseña</label>
+          <input type="password" id="reg-pass" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative" id="reg-pass-confirm-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Confirmar Contraseña</label>
+          <input type="password" id="reg-pass-confirm" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="pt-4 space-y-2">
+          <button type="submit" id="auth-submit-btn" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white py-2.5 rounded-xl text-xs font-bold transition-all">Crear Cuenta e Ingresar</button>
+          <button type="button" id="toggle-auth-mode" class="w-full text-center text-[11px] font-bold text-stone-400 hover:text-brand-orange transition-colors">¿Ya tienes cuenta? Inicia sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/panel.js"></script>
+</body>
+</html>

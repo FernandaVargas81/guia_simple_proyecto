@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidad & Soporte - Guía Simple</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#EA580C',
+              'orange-hover': '#C2410C',
+              teal: '#0D9488',
+              'teal-hover': '#0F766E',
+              bg: '#FAFAF9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-stone-50 text-stone-900 min-h-screen flex flex-col font-sans antialiased">
+
+  <header class="sticky top-0 z-40 bg-white border-b border-stone-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-amber-500 flex items-center justify-center text-white font-bold text-xl">G</div>
+        <span class="font-display font-black text-xl tracking-tight text-stone-950">Guía<span class="text-brand-orange">Simple</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="../index.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Explorar</a>
+        <a href="panel.html" class="px-4 py-2 rounded-full text-sm font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100">Mi Panel & Mapas</a>
+        <a href="soporte.html" class="px-4 py-2 rounded-full text-sm font-semibold text-brand-orange bg-orange-50/80">Comunidad & Soporte</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button id="open-register-btn" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-all flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Registrarse
+        </button>
+        <div class="flex items-center gap-2 pl-2 border-l border-stone-200">
+          <div class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500">
+            <i data-lucide="user" class="w-5 h-5"></i>
+          </div>
+          <div class="text-left">
+            <p class="text-xs font-bold text-stone-950 leading-tight" id="user-greeting">¡Hola!</p>
+            <p class="text-[10px] text-stone-400 leading-none">Invitado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="space-y-8 animate-fade-in">
+      <div class="bg-stone-950 text-stone-100 rounded-[32px] p-8 md:p-12 relative overflow-hidden shadow-xl">
+        <div class="relative z-10 max-w-2xl space-y-4">
+          <span class="inline-block bg-brand-orange text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Comunidad Activa</span>
+          <h1 class="font-display font-black text-3xl md:text-4xl leading-tight">Canal Ciudadano de Apoyo</h1>
+          <p class="text-stone-400 text-sm leading-relaxed">Comparte tus experiencias con otros usuarios de forma colaborativa.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="bg-white border border-stone-200/80 rounded-3xl p-6 shadow-sm h-fit space-y-4">
+          <h2 class="font-display font-black text-lg text-stone-950">Tu Opinión o Consejo</h2>
+          <p class="text-xs text-stone-400">Escribe tu tip de agilidad para otros ciudadanos.</p>
+          
+          <form id="comunidad-form" class="space-y-4">
+            <textarea placeholder="Escribe tu recomendación..." rows="4" class="w-full p-4 rounded-2xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-100 focus:border-brand-orange transition-all text-xs font-medium resize-none"></textarea>
+            <button type="submit" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white py-3 rounded-xl text-xs font-bold shadow-md transition-all">Publicar en Comunidad</button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-2 space-y-4">
+          <h2 class="font-display font-black text-lg text-stone-950">Consejos de la Comunidad</h2>
+          <div id="consejos-container" class="grid grid-cols-1 gap-4">
+            <div class="bg-white border border-stone-200/80 p-5 rounded-2xl shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full bg-orange-100 text-brand-orange flex items-center justify-center font-bold text-xs">A</div>
+                  <div>
+                    <p class="text-xs font-bold text-stone-900">Andrés Mendoza</p>
+                    <p class="text-[10px] text-stone-400">Hace 2 horas</p>
+                  </div>
+                </div>
+              </div>
+              <p class="text-xs text-stone-600 leading-relaxed">"Para el trámite del pasaporte, lo mejor es pagar el recibo del banco del estado el mismo día que agendas la cita. ¡Ahorra muchísimo tiempo en fila!"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs">
+      <p>© 2026 Guía Simple. Simplificando tus trámites públicos colombianos.</p>
+    </div>
+  </footer>
+
+  <div id="register-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-stone-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-stone-100 p-6 space-y-5 relative animate-scale-up">
+      <button id="close-register-btn" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="text-center space-y-1">
+        <span class="inline-block bg-orange-50 text-brand-orange px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Únete al portal</span>
+        <h2 id="auth-modal-title" class="font-display font-black text-2xl text-stone-950">Crear tu Cuenta</h2>
+        <p id="auth-modal-subtitle" class="text-xs text-stone-400">Guarda tus avances y sincroniza tu calendario.</p>
+      </div>
+      <form id="register-form" class="space-y-3" novalidate>
+        <div class="relative" id="reg-name-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Nombre Completo</label>
+          <input type="text" id="reg-name" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Ej: Juan Pérez">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Correo Electrónico</label>
+          <input type="email" id="reg-email" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="tu@correo.com">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Contraseña</label>
+          <input type="password" id="reg-pass" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="relative" id="reg-pass-confirm-group">
+          <label class="text-[10px] font-bold uppercase text-stone-400">Confirmar Contraseña</label>
+          <input type="password" id="reg-pass-confirm" class="w-full px-4 py-2 border rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="••••••••">
+          <div class="error-tooltip hidden absolute left-0 -bottom-8 z-50 bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-[10px] font-bold shadow-md"></div>
+        </div>
+        <div class="pt-4 space-y-2">
+          <button type="submit" id="auth-submit-btn" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white py-2.5 rounded-xl text-xs font-bold transition-all">Crear Cuenta e Ingresar</button>
+          <button type="button" id="toggle-auth-mode" class="w-full text-center text-[11px] font-bold text-stone-400 hover:text-brand-orange transition-colors">¿Ya tienes cuenta? Inicia sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/soporte.js"></script>
+</body>
+</html>
